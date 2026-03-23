@@ -1,4 +1,4 @@
-import { logger } from "@/config/logger";
+import { logger } from "@/config/logger.config";
 
 /**
  * @description Decorador de método para capturar y loguear errores de manera estructurada utilizando el logger configurado.
