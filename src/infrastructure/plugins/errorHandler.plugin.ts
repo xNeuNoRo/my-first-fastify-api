@@ -69,7 +69,12 @@ const errorHandlerPlugin: FastifyPluginAsync = async (app: FastifyInstance) => {
       logger.warn(`[Bad Request] Petición malformada: ${error.message}`);
       appException = new MalformedJsonException();
     } else {
-      logger.error(`[Fatal Error] ${error.message}`, {
+      const errorMessage =
+        error.message ||
+        error.code ||
+        (typeof error === "string" ? error : "Unknown Internal Error");
+
+      logger.error(`[Fatal Error] ${errorMessage}`, {
         stack: error.stack,
         method: request.method,
         url: request.url,
