@@ -1,3 +1,4 @@
+import fs from "node:fs";
 import fastify from "fastify";
 import cors from "@fastify/cors";
 import helmet from "@fastify/helmet";
@@ -13,6 +14,11 @@ import { BookModule } from "./modules/books/book.module";
 
 export async function buildApp() {
   const app = fastify({
+    http2: true,
+    https: {
+      key: fs.readFileSync("./localhost+2-key.pem"),
+      cert: fs.readFileSync("./localhost+2.pem"),
+    },
     logger: false,
     ajv: {
       customOptions: {
@@ -49,7 +55,7 @@ export async function buildApp() {
     max: 100, // Máximo 100 peticiones
     timeWindow: "1 minute", // Por minuto, por IP
     // Mantenemos la consistencia de la arquitectura devolviendo ApiResponse
-    errorResponseBuilder: (request, context) => {
+    errorResponseBuilder: (_request, _context) => {
       const tooManyRequestsException = new TooManyRequestsException();
       return ApiResponse.failure(tooManyRequestsException.toApiError());
     },

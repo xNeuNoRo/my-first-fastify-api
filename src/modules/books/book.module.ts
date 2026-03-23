@@ -13,7 +13,9 @@ import {
   UpdateBookRequestDto,
   BookResponseDto,
   BookIdParamDto,
+  BookListResponseDto,
 } from "./book.dto";
+import { Type } from "@fastify/type-provider-typebox";
 
 export async function BookModule(fastify: FastifyInstance) {
   // 1. REGISTRO DE DEPENDENCIAS (DI Container)
@@ -29,7 +31,7 @@ export async function BookModule(fastify: FastifyInstance) {
   // Listar todos
   fastify.get("/", {
     schema: {
-      response: { 200: { type: "array", items: BookResponseDto } },
+      response: { 200: BookListResponseDto },
     },
     handler: controller.getAll.bind(controller),
   });
@@ -66,7 +68,7 @@ export async function BookModule(fastify: FastifyInstance) {
   fastify.delete("/:id", {
     schema: {
       params: BookIdParamDto,
-      response: { 204: { type: "null" } },
+      response: { 204: Type.Null() },
     },
     handler: controller.delete.bind(controller),
   });

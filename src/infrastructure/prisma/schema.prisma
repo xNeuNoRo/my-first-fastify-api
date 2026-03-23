@@ -12,7 +12,7 @@ model Book {
     id        String   @id @default(uuid())
     title     String
     author    String
-    isbn      String   @unique
+    isbn      String
     pages     Int
     isRead    Boolean  @default(false)
     createdAt DateTime @default(now())
