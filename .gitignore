@@ -1,0 +1,14 @@
+.husky
+.tsbuildinfo
+.env
+coverage
+dist
+node_modules
+pnpm-lock.yaml
+pnpm-workspace.yaml
+
+# prisma
+/src/infrastructure/prisma/generated/
+
+# @xNeuNoRo/neucore minimal framework
+/packages/**
