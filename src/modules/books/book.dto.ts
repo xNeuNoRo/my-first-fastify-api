@@ -4,22 +4,23 @@ import { Type, Static } from "@sinclair/typebox";
 // Esquema base que representa la entidad de dominio Book
 export const BookSchema = Type.Object(
   {
-    id: Type.String({ format: "uuid", description: "ID único del libro" }),
+    id: Type.String({
+      format: "uuid",
+      description: "Identificador único del libro",
+    }),
     title: Type.String({
-      minLength: 1,
-      maxLength: 200,
       description: "Título de la obra",
     }),
     author: Type.String({
-      minLength: 1,
-      maxLength: 100,
       description: "Autor principal",
     }),
     isbn: Type.String({
       description: "Código ISBN (International Standard Book Number)",
     }),
     pages: Type.Number({ minimum: 1, description: "Cantidad de páginas" }),
-    isRead: Type.Boolean({ description: "Indica si el libro ya fue leído" }),
+    isRead: Type.Boolean({
+      description: "Indica si el usuario ya leyó el libro",
+    }),
     // En las APIs HTTP, las fechas viajan como strings ISO 8601
     createdAt: Type.String({
       format: "date-time",
@@ -43,10 +44,22 @@ export type BookDTO = Static<typeof BookSchema>;
 // Dto de creación
 export const CreateBookRequestDto = Type.Object(
   {
-    title: Type.String({ minLength: 1, maxLength: 200 }),
-    author: Type.String({ minLength: 1, maxLength: 100 }),
-    isbn: Type.String(),
-    pages: Type.Number({ minimum: 1 }),
+    title: Type.String({
+      minLength: 1,
+      maxLength: 255,
+      examples: ["El Señor de los Anillos"],
+    }),
+    author: Type.String({
+      minLength: 1,
+      maxLength: 255,
+      examples: ["J.R.R. Tolkien"],
+    }),
+    isbn: Type.String({
+      minLength: 10,
+      maxLength: 13,
+      examples: ["9788445000663"],
+    }),
+    pages: Type.Number({ minimum: 1, examples: [1200] }),
   },
   {
     $id: "CreateBookRequest",
@@ -64,6 +77,20 @@ export const UpdateBookRequestDto = Type.Partial(CreateBookRequestDto, {
 });
 
 export type UpdateBookRequest = Static<typeof UpdateBookRequestDto>;
+
+// ==========================
+// Dtos de parametros de ruta (route params)
+// ==========================
+
+// Dto para el parámetro de ruta que identifica un libro por su ID
+export const BookIdParamSchema = Type.Object({
+  id: Type.String({
+    format: "uuid",
+    errorMessage: "El ID debe ser un UUID válido",
+  }),
+});
+
+export type BookIdParam = Static<typeof BookIdParamSchema>;
 
 // ==========================
 // Dtos de salida (responses)

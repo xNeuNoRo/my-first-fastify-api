@@ -3,9 +3,9 @@ import {
   ClearCache,
   Retry,
   MapTo,
+  Mapper,
   Injectable,
   Inject,
-  mappedTo,
 } from "@xneunoro/neucore";
 
 import { DatabaseService } from "@/infrastructure/database/DatabaseService";
@@ -20,7 +20,7 @@ export class BookRepository implements IBookRepository {
   @Cache("books")
   @MapTo(Book)
   public async findAll(): Promise<Book[]> {
-    return mappedTo<Promise<Book[]>>(
+    return Mapper.infer<Promise<Book[]>>(
       this.db.client.book.findMany({
         orderBy: { createdAt: "desc" },
       }),
@@ -30,7 +30,7 @@ export class BookRepository implements IBookRepository {
   @Cache("books")
   @MapTo(Book)
   public async findById(id: Book["id"]): Promise<Book | null> {
-    return mappedTo<Promise<Book | null>>(
+    return Mapper.infer<Promise<Book | null>>(
       this.db.client.book.findUnique({
         where: { id },
       }),
