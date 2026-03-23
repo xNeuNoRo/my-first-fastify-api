@@ -13,7 +13,7 @@ import { Type, TSchema } from "@sinclair/typebox";
  *
  * // Para una respuesta que devuelve una lista de libros:
  * const BookListResponseSchema = createApiResponseSchema(Type.Array(BookSchema), "Respuesta para una lista de libros");
- * @returns Un nuevo esquema de TypeBox que sigue la estructura de ApiResponse, con `success`, `data` y `error`.
+ * @returns Un nuevo esquema de TypeBox que sigue la estructura de ApiResponse, con `ok`, `data` y `error`.
  */
 export const createApiResponseSchema = <T extends TSchema>(
   dataSchema: T,
@@ -21,9 +21,10 @@ export const createApiResponseSchema = <T extends TSchema>(
 ) => {
   return Type.Object(
     {
-      success: Type.Boolean(),
-      data: dataSchema,
-      error: Type.Optional(Type.Any()),
+      ok: Type.Boolean(),
+      data: Type.Union([dataSchema, Type.Null()]),
+      error: Type.Union([Type.Any(), Type.Null()]),
+      timestamp: Type.String({ format: "date-time" }),
     },
     { description },
   );

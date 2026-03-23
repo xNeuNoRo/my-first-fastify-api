@@ -83,14 +83,14 @@ export type UpdateBookRequest = Static<typeof UpdateBookRequestDto>;
 // ==========================
 
 // Dto para el parámetro de ruta que identifica un libro por su ID
-export const BookIdParamSchema = Type.Object({
+export const BookIdParamDto = Type.Object({
   id: Type.String({
     format: "uuid",
     errorMessage: "El ID debe ser un UUID válido",
   }),
 });
 
-export type BookIdParam = Static<typeof BookIdParamSchema>;
+export type BookIdDto = Static<typeof BookIdParamDto>;
 
 // ==========================
 // Dtos de salida (responses)

@@ -9,11 +9,16 @@ import { requestContext } from "@/infrastructure/plugins/requestContext.plugin";
 import { errorHandler } from "@/infrastructure/plugins/errorHandler.plugin";
 import { ApiResponse } from "@/domain/common/ApiResponse";
 import { TooManyRequestsException } from "./domain/exceptions/RequestExceptions";
+import { BookModule } from "./modules/books/book.module";
 
 export async function buildApp() {
   const app = fastify({
     logger: false,
-    http2: true,
+    ajv: {
+      customOptions: {
+        strict: false, // Desactivamos el modo estricto para permitir esquemas más flexibles
+      },
+    },
   }).withTypeProvider<TypeBoxTypeProvider>();
 
   // Registramos los plugins personalizados para manejo de contexto de solicitud y manejo de errores
@@ -83,6 +88,7 @@ export async function buildApp() {
   });
 
   app.get("/health", async () => ApiResponse.success(undefined));
+  await app.register(BookModule, { prefix: "/api/v1/books" });
 
   return app;
 }
