@@ -6,6 +6,7 @@ import {
   Mapper,
   Injectable,
   Inject,
+  Transactional,
 } from "@xneunoro/neucore";
 
 import { DatabaseService } from "@/infrastructure/database/DatabaseService";
@@ -39,6 +40,7 @@ export class BookRepository implements IBookRepository {
 
   @Retry(3, 500)
   @ClearCache("books")
+  @Transactional()
   public async save(book: Book): Promise<void> {
     await this.db.client.book.upsert({
       where: { id: book.id },
@@ -64,6 +66,7 @@ export class BookRepository implements IBookRepository {
 
   @Retry(3, 500)
   @ClearCache("books")
+  @Transactional()
   public async delete(id: string): Promise<void> {
     await this.db.client.book.delete({
       where: { id },

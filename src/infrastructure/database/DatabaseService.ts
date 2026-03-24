@@ -5,6 +5,7 @@ import {
   Inject,
   LOGGER_TOKEN,
   LoggerContract,
+  createTransactionProxy,
 } from "@xneunoro/neucore";
 
 @Injectable()
@@ -27,8 +28,8 @@ export class DatabaseService {
       connectionString: process.env.DATABASE_URL,
     });
 
-    // 3. Inicializamos el cliente de Prisma
-    this.client = new PrismaClient({
+    // Inicializamos el cliente de Prisma
+    const rawClient = new PrismaClient({
       adapter,
       log: [
         { emit: "event", level: "query" },
@@ -36,6 +37,10 @@ export class DatabaseService {
         { emit: "event", level: "warn" },
       ],
     });
+
+    // Creamos un proxy alrededor del cliente de Prisma
+    // para manejar automáticamente las transacciones utilizando el contexto de Neucore
+    this.client = createTransactionProxy(rawClient);
   }
 
   /**

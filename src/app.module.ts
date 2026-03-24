@@ -1,6 +1,7 @@
-import { Module } from "@xneunoro/neucore";
-import { DatabaseService } from "./infrastructure/database/DatabaseService";
 import path from "node:path";
+import { Module, TRANSACTION_MANAGER_TOKEN } from "@xneunoro/neucore";
+import { DatabaseService } from "./infrastructure/database/DatabaseService";
+import { PrismaTxManager } from "./infrastructure/database/PrismaTxManager";
 
 @Module({
   // Autodescubrimiento de módulos. La Factory escaneará recursivamente el directorio base
@@ -11,6 +12,10 @@ import path from "node:path";
   },
   // Forma tradicional:
   // imports: [BookModule, AnotherModule], --- IGNORE ---
-  providers: [DatabaseService], // Servicios globales de infraestructura
+  providers: [
+    // Servicios globales de infraestructura
+    DatabaseService,
+    { contract: TRANSACTION_MANAGER_TOKEN, implementation: PrismaTxManager },
+  ],
 })
 export class AppModule {}

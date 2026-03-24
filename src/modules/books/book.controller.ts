@@ -4,6 +4,9 @@ import {
   UpdateBookRequest,
   BookListResponseDto,
   BookResponseDto,
+  CreateBookRequestDto,
+  BookIdParamDto,
+  UpdateBookRequestDto,
 } from "./book.dto";
 import {
   Inject,
@@ -41,25 +44,32 @@ export class BookController {
     return "Esta es la versión 2 de la ruta GET /books, sin necesidad de crear un nuevo controlador.";
   }
 
-  @Get("/:id", { response: { 200: BookResponseDto } })
+  @Get("/:id", { params: BookIdParamDto, response: { 200: BookResponseDto } })
   @UseParams(Param("id"))
   async getById(id: string) {
     return await this.service.getBookById(id);
   }
 
-  @Post("/", { response: { 201: BookResponseDto } })
+  @Post("/", { body: CreateBookRequestDto, response: { 201: BookResponseDto } })
   @UseParams(Body())
   async create(data: CreateBookRequest) {
     return await this.service.createBook(data);
   }
 
-  @Patch("/:id", { response: { 200: BookResponseDto } })
+  @Patch("/:id", {
+    params: BookIdParamDto,
+    body: UpdateBookRequestDto,
+    response: { 200: BookResponseDto },
+  })
   @UseParams(Param("id"), Body())
   async update(id: string, data: UpdateBookRequest) {
     return await this.service.updateBook(id, data);
   }
 
-  @Delete("/:id")
+  @Delete("/:id", {
+    params: BookIdParamDto,
+    response: { 204: {} },
+  })
   @UseParams(Param("id"), Res())
   async delete(id: string, res: FastifyReply) {
     await this.service.deleteBook(id);

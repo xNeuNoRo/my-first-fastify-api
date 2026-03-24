@@ -18,7 +18,7 @@ export class PinoLogger implements LoggerContract {
 
   private getContext() {
     const context = neucoreContext.getStore();
-    return context ? { requestId: context.requestId } : {};
+    return context ? Object.fromEntries(context) : {};
   }
 
   info(message: string, context?: Record<string, any>) {
