@@ -34,6 +34,7 @@ export async function buildApp() {
     fastifyOptions: {
       http2: true,
       https: {
+        allowHTTP1: true, // Permite que el servidor acepte tanto HTTP/1.1 como HTTP/2 en el mismo puerto
         key: fs.readFileSync("./localhost+2-key.pem"),
         cert: fs.readFileSync("./localhost+2.pem"),
       },
