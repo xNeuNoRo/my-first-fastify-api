@@ -23,6 +23,7 @@ import {
   FastifyReply,
   Version,
   createApiResponseSchema,
+  RateLimit,
 } from "@xneunoro/neucore";
 import { Type } from "@sinclair/typebox";
 
@@ -40,6 +41,7 @@ export class BookController {
 
   @Version("2") // Versión de API a nivel de método. Solo esta ruta estará bajo v2/books/...
   @Get("/", { response: { 200: createApiResponseSchema(Type.String()) } })
+  @RateLimit({ max: 5, timeWindow: 60000 }) // Limita a 5 solicitudes por minuto para esta ruta específica
   async getAllV2() {
     return "Esta es la versión 2 de la ruta GET /books, sin necesidad de crear un nuevo controlador.";
   }
