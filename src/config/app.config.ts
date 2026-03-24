@@ -1,4 +1,4 @@
-import { ConfigRegistry } from "@xneunoro/neucore"; // (Ajusta el path a tu registry)
+import { ConfigRegistry } from "@xneunoro/neucore";
 
 /**
  * @description Función para cargar las configuraciones de la aplicación desde las variables de entorno.
