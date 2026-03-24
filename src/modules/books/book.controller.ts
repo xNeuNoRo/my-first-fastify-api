@@ -1,4 +1,3 @@
-import { FastifyReply } from "fastify";
 import { BookService } from "./book.service";
 import {
   CreateBookRequest,
@@ -18,17 +17,28 @@ import {
   Patch,
   Delete,
   Res,
+  FastifyReply,
+  Version,
+  createApiResponseSchema,
 } from "@xneunoro/neucore";
+import { Type } from "@sinclair/typebox";
 
 @Injectable()
+@Version("1") // Versión de API a nivel de controlador. Todas las rutas de este controlador estarán bajo v1/books/...
 @Controller("/books")
 export class BookController {
   @Inject(BookService)
   private readonly service!: BookService;
 
   @Get("/", { response: { 200: BookListResponseDto } })
-  async getAll() {
+  async getAllV1() {
     return await this.service.getAllBooks();
+  }
+
+  @Version("2") // Versión de API a nivel de método. Solo esta ruta estará bajo v2/books/...
+  @Get("/", { response: { 200: createApiResponseSchema(Type.String()) } })
+  async getAllV2() {
+    return "Esta es la versión 2 de la ruta GET /books, sin necesidad de crear un nuevo controlador.";
   }
 
   @Get("/:id", { response: { 200: BookResponseDto } })

@@ -42,7 +42,10 @@ class ApplicationServer {
       // Configuramos el Graceful Shutdown
       this.setupGracefulShutdown(app);
     } catch (error) {
-      this.logger.error("💥 Error fatal al arrancar la app:", { error });
+      this.logger.error("💥 Error fatal al arrancar la app:", {
+        message: error instanceof Error ? error.message : String(error),
+        stack: error instanceof Error ? error.stack : undefined,
+      });
       process.exit(1);
     }
   }

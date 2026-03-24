@@ -1,24 +1,15 @@
 import fs from "node:fs";
 import { NeucoreFactory } from "@xneunoro/neucore";
-import { BookModule } from "./modules/books/book.module";
+import { AppModule } from "./app.module";
 
 export async function buildApp() {
-  // Obtenemos los controladores que el módulo expone.
-  const { controllers: bookControllers } = BookModule();
-
   // Creamos la aplicación usando la Factory del framework
   const app = await NeucoreFactory.create({
+    // Módulo raíz de la aplicación
+    module: AppModule,
+
     // Prefijo base para todas las rutas de la API
-    globalPrefix: "/api/v1",
-
-    // Pasamos los controladores de nuestros módulos
-    controllers: [...bookControllers],
-
-    // El framework escaneará automáticamente los controladores
-    autoDiscover: {
-      baseDir: process.cwd() + "/src/modules",
-      suffix: ".controller.ts",
-    },
+    globalPrefix: "/api",
 
     // Configuración de Seguridad (CORS, Helmet y Rate Limit)
     // El framework ya tiene los plugins integrados internamente.
