@@ -17,6 +17,7 @@ import {
   Body,
   Patch,
   Delete,
+  Res,
 } from "@xneunoro/neucore";
 
 @Injectable()
@@ -49,9 +50,9 @@ export class BookController {
   }
 
   @Delete("/:id")
-  @UseParams(Param("id"))
-  async delete(id: string, reply: FastifyReply) {
+  @UseParams(Param("id"), Res())
+  async delete(id: string, res: FastifyReply) {
     await this.service.deleteBook(id);
-    return reply.status(204).send();
+    return res.status(204).send();
   }
 }
