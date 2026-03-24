@@ -3,10 +3,10 @@ import {
   Injectable,
   LOGGER_TOKEN,
   LoggerContract,
-} from "packages/core/src";
+  NotFoundException,
+} from "@xneunoro/neucore";
 import { IBookRepository } from "./book.contracts";
 import { Book } from "@/domain/entities/Book.entity";
-import { NotFoundException } from "@/domain/exceptions/ResourceExceptions";
 import { CreateBookRequest, UpdateBookRequest } from "./book.dto";
 
 @Injectable()

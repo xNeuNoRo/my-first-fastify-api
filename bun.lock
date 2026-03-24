@@ -47,11 +47,21 @@
         "typescript": "^5.9.2",
       },
     },
-    "packages/core": {
+    "packages/neucore": {
       "name": "@xneunoro/neucore",
       "version": "1.0.0",
       "dependencies": {
-        "@sinclair/typebox": "^0.34.48",
+        "@fastify/cors": "^11.2.0",
+        "@fastify/helmet": "^13.0.2",
+        "@fastify/rate-limit": "^10.3.0",
+        "@fastify/swagger": "^9.7.0",
+        "@fastify/type-provider-typebox": "^6.1.0",
+        "@scalar/fastify-api-reference": "^1.24.0",
+        "fastify-plugin": "^5.1.0",
+      },
+      "peerDependencies": {
+        "@sinclair/typebox": "^0.32.0 || ^0.33.0 || ^0.34.0",
+        "fastify": "^5.8.4",
       },
     },
   },
@@ -420,7 +430,7 @@
 
     "@unrs/resolver-binding-win32-x64-msvc": ["@unrs/resolver-binding-win32-x64-msvc@1.11.1", "", { "os": "win32", "cpu": "x64" }, "sha512-lrW200hZdbfRtztbygyaq/6jP6AKE8qQN2KvPcJ+x7wiD038YtnYtZ82IMNJ69GJibV7bwL3y9FgK+5w/pYt6g=="],
 
-    "@xneunoro/neucore": ["@xneunoro/neucore@workspace:packages/core"],
+    "@xneunoro/neucore": ["@xneunoro/neucore@workspace:packages/neucore"],
 
     "abstract-logging": ["abstract-logging@2.0.1", "", {}, "sha512-2BjRTZxTPvheOvGbBslFSYOUkr+SjPtOnrLP33f+VIWLzezQpZcqVg7ja3L4dBXmzzgwT+a029jRx5PCi3JuiA=="],
 

@@ -5,6 +5,7 @@ import {
   InjectConfig,
   LOGGER_TOKEN,
   LoggerContract,
+  FastifyInstance,
 } from "@xneunoro/neucore";
 
 import { PinoLogger } from "./infrastructure/logger/PinoLogger";
@@ -54,9 +55,9 @@ class ApplicationServer {
    * la conexión a la base de datos, asegurando que no se pierdan solicitudes en proceso ni se dejen conexiones abiertas.
    * Si ocurre algún error durante este proceso, se registra el error y se fuerza la salida del proceso con un código de error.
    */
-  private setupGracefulShutdown(app: any): void {
+  private setupGracefulShutdown(app: FastifyInstance): void {
     const shutdown = async (signal: string) => {
-      this.logger.info(
+      this.logger.warn(
         `🔴 Señal ${signal} recibida. Iniciando Graceful Shutdown...`,
       );
 
@@ -67,9 +68,7 @@ class ApplicationServer {
         await this.dbService.disconnect();
         this.logger.debug("✅ Base de datos desconectada.");
 
-        this.logger.info(
-          "💤 Se ha completado el Graceful Shutdown. Saliendo del proceso...",
-        );
+        this.logger.info("💤 Shutdown completado. Saliendo...");
         process.exit(0);
       } catch (err) {
         this.logger.error("💥 Error durante el Graceful Shutdown:", { err });
@@ -88,10 +87,6 @@ loadAppConfigurations();
 
 // Registramos dependencias
 container.registerClass(LOGGER_TOKEN, PinoLogger);
-container.registerClass(DatabaseService, DatabaseService);
-
-// Registramos nuestra clase constructora
-container.registerClass(ApplicationServer, ApplicationServer);
 
 const server = container.resolve(ApplicationServer);
 await server.start();

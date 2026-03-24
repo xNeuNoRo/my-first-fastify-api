@@ -1,4 +1,4 @@
-import { createApiResponseSchema } from "@/infrastructure/http/schemas/ApiResponseSchema";
+import { createApiResponseSchema } from "@xneunoro/neucore";
 import { Type, Static } from "@sinclair/typebox";
 
 // Esquema base que representa la entidad de dominio Book

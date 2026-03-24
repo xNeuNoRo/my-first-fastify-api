@@ -1,6 +1,5 @@
 import { pino, Logger } from "pino";
-import { LoggerContract } from "@xneunoro/neucore";
-import { appContext } from "../context/appContext";
+import { neucoreContext, LoggerContract } from "@xneunoro/neucore";
 
 export class PinoLogger implements LoggerContract {
   private readonly pino: Logger;
@@ -18,7 +17,7 @@ export class PinoLogger implements LoggerContract {
   }
 
   private getContext() {
-    const context = appContext.getStore();
+    const context = neucoreContext.getStore();
     return context ? { requestId: context.requestId } : {};
   }
 

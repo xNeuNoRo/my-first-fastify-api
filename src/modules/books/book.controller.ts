@@ -1,48 +1,57 @@
-import { Inject, Injectable } from "@xneunoro/neucore";
-import { FastifyReply, FastifyRequest } from "fastify";
+import { FastifyReply } from "fastify";
 import { BookService } from "./book.service";
-import { CreateBookRequest, UpdateBookRequest, BookIdDto } from "./book.dto";
-import { ApiResponse } from "@/domain/common/ApiResponse";
+import {
+  CreateBookRequest,
+  UpdateBookRequest,
+  BookListResponseDto,
+  BookResponseDto,
+} from "./book.dto";
+import {
+  Inject,
+  Injectable,
+  Get,
+  Controller,
+  Param,
+  UseParams,
+  Post,
+  Body,
+  Patch,
+  Delete,
+} from "@xneunoro/neucore";
 
 @Injectable()
+@Controller("/books")
 export class BookController {
   @Inject(BookService)
   private readonly service!: BookService;
 
-  async getAll(_req: FastifyRequest, reply: FastifyReply) {
-    const books = await this.service.getAllBooks();
-    return reply.send(ApiResponse.success(books));
+  @Get("/", { response: { 200: BookListResponseDto } })
+  async getAll() {
+    return await this.service.getAllBooks();
   }
 
-  async getById(
-    req: FastifyRequest<{ Params: BookIdDto }>,
-    reply: FastifyReply,
-  ) {
-    const book = await this.service.getBookById(req.params.id);
-    return reply.send(ApiResponse.success(book));
+  @Get("/:id", { response: { 200: BookResponseDto } })
+  @UseParams(Param("id"))
+  async getById(id: string) {
+    return await this.service.getBookById(id);
   }
 
-  async create(
-    req: FastifyRequest<{ Body: CreateBookRequest }>,
-    reply: FastifyReply,
-  ) {
-    const book = await this.service.createBook(req.body);
-    return reply.status(201).send(ApiResponse.success(book));
+  @Post("/", { response: { 201: BookResponseDto } })
+  @UseParams(Body())
+  async create(data: CreateBookRequest) {
+    return await this.service.createBook(data);
   }
 
-  async update(
-    req: FastifyRequest<{ Params: BookIdDto; Body: UpdateBookRequest }>,
-    reply: FastifyReply,
-  ) {
-    const book = await this.service.updateBook(req.params.id, req.body);
-    return reply.send(ApiResponse.success(book));
+  @Patch("/:id", { response: { 200: BookResponseDto } })
+  @UseParams(Param("id"), Body())
+  async update(id: string, data: UpdateBookRequest) {
+    return await this.service.updateBook(id, data);
   }
 
-  async delete(
-    req: FastifyRequest<{ Params: BookIdDto }>,
-    reply: FastifyReply,
-  ) {
-    await this.service.deleteBook(req.params.id);
+  @Delete("/:id")
+  @UseParams(Param("id"))
+  async delete(id: string, reply: FastifyReply) {
+    await this.service.deleteBook(id);
     return reply.status(204).send();
   }
 }

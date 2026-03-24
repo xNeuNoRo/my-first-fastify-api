@@ -1,4 +1,4 @@
-import { Mapper } from "packages/core/src";
+import { Mapper } from "@xneunoro/neucore";
 
 export class Book {
   constructor(
