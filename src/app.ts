@@ -1,5 +1,5 @@
 import fs from "node:fs";
-import { NeucoreFactory } from "packages/neucore/dist";
+import { NeucoreFactory } from "@xneunoro/neucore";
 import { BookModule } from "./modules/books/book.module";
 
 export async function buildApp() {
