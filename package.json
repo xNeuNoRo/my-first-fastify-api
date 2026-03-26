@@ -4,9 +4,6 @@
   "description": "Una api de crud simple para practicar el framework fastify y el uso de decoradores nativos de JS",
   "main": "src/server.ts",
   "type": "module",
-  "workspaces": [
-    "packages/*"
-  ],
   "scripts": {
     "start": "bun src/server.ts",
     "dev": "bun --watch src/server.ts",
@@ -81,7 +78,6 @@
     "@prisma/client": "^7.5.0",
     "@scalar/fastify-api-reference": "^1.49.3",
     "@sinclair/typebox": "^0.34.48",
-    "@xneunoro/neucore": "workspace:*",
     "colors": "^1.4.0",
     "dotenv": "^17.2.1",
     "fastify": "^5.8.2",
