@@ -1,4 +1,4 @@
-import { Mapper } from "@xneunoro/neucore";
+import { Mapper } from "@neunoro/fastify-kit";
 
 export class Book {
   constructor(

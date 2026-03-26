@@ -1,5 +1,5 @@
 import { pino, Logger } from "pino";
-import { neucoreContext, LoggerContract } from "@xneunoro/neucore";
+import { requestContext, LoggerContract } from "@neunoro/fastify-kit";
 
 export class PinoLogger implements LoggerContract {
   private readonly pino: Logger;
@@ -17,7 +17,7 @@ export class PinoLogger implements LoggerContract {
   }
 
   private getContext() {
-    const context = neucoreContext.getStore();
+    const context = requestContext.getStore();
     return context ? Object.fromEntries(context) : {};
   }
 

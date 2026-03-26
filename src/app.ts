@@ -1,10 +1,10 @@
 import fs from "node:fs";
-import { NeucoreFactory } from "@xneunoro/neucore";
+import { FastifyKit } from "@neunoro/fastify-kit";
 import { AppModule } from "./app.module";
 
 export async function buildApp() {
   // Creamos la aplicación usando la Factory del framework
-  const app = await NeucoreFactory.create({
+  const app = await FastifyKit.create({
     // Módulo raíz de la aplicación
     module: AppModule,
 

@@ -1,4 +1,4 @@
-import { ConfigRegistry } from "@xneunoro/neucore";
+import { ConfigRegistry } from "@neunoro/fastify-kit";
 
 /**
  * @description Función para cargar las configuraciones de la aplicación desde las variables de entorno.

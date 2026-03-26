@@ -1,4 +1,4 @@
-import { Module } from "@xneunoro/neucore";
+import { Module } from "@neunoro/fastify-kit";
 import { BookService } from "./book.service";
 import { BookRepository } from "./book.repository";
 import { IBookRepository } from "./book.contracts";

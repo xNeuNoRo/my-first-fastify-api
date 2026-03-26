@@ -4,7 +4,7 @@ import {
   LOGGER_TOKEN,
   LoggerContract,
   NotFoundException,
-} from "@xneunoro/neucore";
+} from "@neunoro/fastify-kit";
 import { IBookRepository } from "./book.contracts";
 import { Book } from "@/domain/entities/Book.entity";
 import { CreateBookRequest, UpdateBookRequest } from "./book.dto";

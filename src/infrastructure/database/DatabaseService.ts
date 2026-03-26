@@ -6,7 +6,7 @@ import {
   LOGGER_TOKEN,
   LoggerContract,
   createTransactionProxy,
-} from "@xneunoro/neucore";
+} from "@neunoro/fastify-kit";
 
 @Injectable()
 export class DatabaseService {

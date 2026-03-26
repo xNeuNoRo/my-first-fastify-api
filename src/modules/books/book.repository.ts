@@ -7,7 +7,7 @@ import {
   Injectable,
   Inject,
   Transactional,
-} from "@xneunoro/neucore";
+} from "@neunoro/fastify-kit";
 
 import { DatabaseService } from "@/infrastructure/database/DatabaseService";
 import { Book } from "@/domain/entities/Book.entity";

@@ -20,12 +20,12 @@ import {
   Patch,
   Delete,
   Res,
-  FastifyReply,
   Version,
   createApiResponseSchema,
   RateLimit,
-} from "@xneunoro/neucore";
+} from "@neunoro/fastify-kit";
 import { Type } from "@sinclair/typebox";
+import { FastifyReply } from "fastify";
 
 @Injectable()
 @Version("1") // Versión de API a nivel de controlador. Todas las rutas de este controlador estarán bajo v1/books/...

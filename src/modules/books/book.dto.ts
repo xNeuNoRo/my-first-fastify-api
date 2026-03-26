@@ -1,4 +1,4 @@
-import { createApiResponseSchema } from "@xneunoro/neucore";
+import { createApiResponseSchema } from "@neunoro/fastify-kit";
 import { Type, Static } from "@sinclair/typebox";
 
 // Esquema base que representa la entidad de dominio Book

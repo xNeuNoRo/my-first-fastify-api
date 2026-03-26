@@ -1,5 +1,5 @@
 import path from "node:path";
-import { Module, TRANSACTION_MANAGER_TOKEN } from "@xneunoro/neucore";
+import { Module, TRANSACTION_MANAGER_TOKEN } from "@neunoro/fastify-kit";
 import { DatabaseService } from "./infrastructure/database/DatabaseService";
 import { PrismaTxManager } from "./infrastructure/database/PrismaTxManager";
 

@@ -5,13 +5,13 @@ import {
   InjectConfig,
   LOGGER_TOKEN,
   LoggerContract,
-  FastifyInstance,
-} from "@xneunoro/neucore";
+} from "@neunoro/fastify-kit";
 
 import { PinoLogger } from "./infrastructure/logger/PinoLogger";
 import { DatabaseService } from "./infrastructure/database/DatabaseService";
 import { buildApp } from "./app";
 import { loadAppConfigurations } from "./config/app.config";
+import { FastifyInstance } from "fastify";
 
 @Injectable()
 class ApplicationServer {
