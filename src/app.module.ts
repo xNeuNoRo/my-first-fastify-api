@@ -2,6 +2,7 @@ import path from "node:path";
 import { Module, TRANSACTION_MANAGER_TOKEN } from "@neunoro/fastify-kit";
 import { DatabaseService } from "./infrastructure/database/DatabaseService";
 import { PrismaTxManager } from "./infrastructure/database/PrismaTxManager";
+import { AppGateway } from "./app.gateway";
 
 @Module({
   // Autodescubrimiento de módulos. La Factory escaneará recursivamente el directorio base
@@ -16,6 +17,7 @@ import { PrismaTxManager } from "./infrastructure/database/PrismaTxManager";
     // Servicios globales de infraestructura
     DatabaseService,
     { contract: TRANSACTION_MANAGER_TOKEN, implementation: PrismaTxManager },
+    AppGateway,
   ],
 })
 export class AppModule {}
